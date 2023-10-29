@@ -25,7 +25,7 @@ const isLocalTrack = (track: Track): track is LocalTrack => track.local;
 const localTrackToQueueItem = (track: LocalTrack, local: LocalLibraryState): QueueItem => {
   const { streams, ...rest } = track;
 
-  const matchingLocalTrack = local.tracks.find(localTrack => localTrack.uuid === track.uuid);
+  const matchingLocalTrack = Array.isArray(local.tracks) ? local.tracks.find(localTrack => localTrack.uuid === track.uuid) : null;
 
   const resolvedStream = !isEmpty(streams) 
     ? streams?.find(stream => stream.source === 'Local') 
